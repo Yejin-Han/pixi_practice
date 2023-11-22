@@ -23,14 +23,12 @@ app.renderer.autoDensity = true; // 캔버스 크기가 해상도와 일치하�
 app.renderer.resize(512, 512);
 console.log(app.renderer.view.width, app.renderer.view.height);
 
-/* 
 // 캔버스가 전체 창을 채우고 resize 시 캔버스 크기가 자동으로 조정
 app.renderer.view.style.position = "absolute";
 app.renderer.view.style.display = "block";
 app.renderer.autoDensity = true;
 app.resizeTo = window;
 console.log(PIXI);
- */
 
 /*
 // 브라우저 창 크기에 맞게 줄어듦
@@ -68,3 +66,24 @@ function setup() {
 }
 
 loadAssets();
+
+async function loadSprites() {
+  const tileset = await Assets.load("./assets/images/tileset.png");
+  setup2();
+}
+
+function setup2() {
+  const texture = Texture["./assets/images/tileset.png"];
+  const rectangle = new PIXI.Rectangle(192, 128, 64, 64);
+  texture.frame = rectangle;
+
+  const rocket = new Sprite(texture);
+  rocket.x = 96;
+  rocket.y = 256;
+
+  app.stage.addChild(rocket);
+
+  app.renderer.render(app.stage);
+}
+
+loadSprites();
